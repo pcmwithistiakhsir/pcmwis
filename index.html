@@ -20,6 +20,430 @@
   
 <body>
 
+       <!-- CUSTOM NAVBAR (Raw HTML/CSS/JS) -->
+    <nav class="custom-navbar" id="mainNavbar">
+        <div class="nav-container">
+            <!-- Brand -->
+            <a class="nav-brand" href="#">
+                <img src="https://cdn-icons-png.flaticon.com/512/3413/3413535.png" alt="Logo">
+            </a>
+            
+            <!-- Mobile Overlay -->
+            <div class="nav-overlay" id="navOverlay" onclick="toggleMobileMenu()"></div>
+
+            <!-- Nav Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <!-- Mobile Header -->
+                <li class="mobile-menu-header">
+                    <h5 class="mobile-title">PCM With Istiakh Sir</h5>
+                    <!-- CHANGED: Close Button removed as per request -->
+                </li>
+
+                <li class="nav-item"><a href="#home" class="active" onclick="closeMenu()">হোম</a></li>
+                <li class="nav-item"><a href="#features" onclick="closeMenu()">সুবিধাসমূহ</a></li>
+                <li class="nav-item"><a href="#courses" onclick="closeMenu()">কোর্স</a></li>
+                <li class="nav-item"><a href="#director" onclick="closeMenu()">পরিচালক</a></li>
+                <li class="nav-item nav-btn-item">
+                    <a href="#contact" class="btn-gradient" onclick="closeMenu()">
+                        ভর্তি হোন <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Toggler -->
+            <button class="nav-toggler" onclick="toggleMobileMenu()">
+                <div class="toggler-box">
+                    <i class="fas fa-bars" id="togglerIcon"></i>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero d-flex align-items-center">
+        <div class="hero-blob"></div>
+        <div class="container">
+            <div class="row align-items-center flex-column-reverse flex-lg-row">
+                <!-- Text Content -->
+                <div class="col-lg-6 mt-4 mt-lg-0 text-center text-lg-start" data-aos="fade-right" data-aos-duration="1000">
+                    <span class="text-primary fw-bold text-uppercase ls-2">সেরা গাইডলাইন</span>
+                    <h1 class="display-3 fw-bold mt-3 mb-4 text-dark">তোমার স্বপ্ন পূরণের <span style="color: var(--primary);">বিশ্বস্ত সঙ্গী</span></h1>
+                    <p class="lead text-secondary mb-5">আমরা দিচ্ছি আধুনিক প্রযুক্তি ও অভিজ্ঞ মেন্টরদের সমন্বয়ে সেরা শিক্ষার নিশ্চয়তা। আজই জয়েন করো আমাদের সাথে।</p>
+                    <div class="d-flex justify-content-center justify-content-lg-start gap-3">
+                        <a href="#courses" class="btn btn-gradient btn-lg">কোর্স দেখো</a>
+                        <a href="#" class="btn btn-outline-dark btn-lg rounded-pill px-4"><i class="fas fa-play-circle me-2"></i> ডেমো</a>
+                    </div>
+                </div>
+                <!-- Image -->
+                <div class="col-lg-6" data-aos="zoom-in" data-aos-duration="1200">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Students" class="img-fluid hero-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-primary fw-bold">কেন আমরা সেরা?</h6>
+                <h2 class="fw-bold">আমাদের বিশেষ সুবিধাসমূহ</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <h4>এক্সপার্ট মেন্টর</h4>
+                        <p class="text-muted">দেশসেরা বিশ্ববিদ্যালয় (BUET, DMC, DU) এর অভিজ্ঞ ভাইয়া-আপুদের দ্বারা ক্লাস।</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-clipboard-check"></i></div>
+                        <h4>নিয়মিত পরীক্ষা</h4>
+                        <p class="text-muted">সাপ্তাহিক ও মাসিক পরীক্ষার মাধ্যমে শিক্ষার্থীদের মেধা যাচাই ও দুর্বলতা নির্ণয়।</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="icon-box"><i class="fas fa-file-alt"></i></div>
+                        <h4>লেকচার শিট</h4>
+                        <p class="text-muted">প্রতিটি চ্যাপ্টারের উপর থাকছে কালারফুল পিডিএফ নোট এবং প্র্যাকটিস শিট।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-in">
+                <div>
+                    <h6 class="text-primary fw-bold">জনপ্রিয় কোর্স</h6>
+                    <h2 class="fw-bold">তোমার লক্ষ্য নির্ধারণ করো</h2>
+                </div>
+                <a href="#" class="btn btn-outline-primary rounded-pill btn-sm d-none d-md-block">সব দেখুন <i class="fas fa-arrow-right"></i></a>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Course 1 -->
+                <div class="col-md-4" data-aos="flip-left" data-aos-duration="1000">
+                    <div class="card course-card h-100">
+                        <div class="course-thumb">
+                            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Chemistry">
+                            <span class="badge-price">৳ ২৫০০</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-light text-primary">সায়েন্স</span>
+                                <span class="text-warning"><i class="fas fa-star"></i> ৪.৯</span>
+                            </div>
+                            <h4 class="fw-bold mb-3">এইচএসসি রসায়ন ব্লাস্টার</h4>
+                            <p class="text-muted small mb-4">অর্গানিক কেমিস্ট্রির ভয় দূর করতে এই কোর্সটি তোমার জন্য। সম্পূর্ণ সিলেবাস কভার।</p>
+                            <div class="border-top pt-3">
+                                <a href="#" class="btn btn-sm btn-outline-primary w-100 rounded-pill">বিস্তারিত দেখুন <i class="fas fa-angle-right ms-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course 2 -->
+                <div class="col-md-4" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="100">
+                    <div class="card course-card h-100">
+                        <div class="course-thumb">
+                            <img src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Math">
+                            <span class="badge-price">৳ ২০০০</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-light text-primary">ফাউন্ডেশন</span>
+                                <span class="text-warning"><i class="fas fa-star"></i> ৫.০</span>
+                            </div>
+                            <h4 class="fw-bold mb-3">গণিত মাস্টারমাইন্ড</h4>
+                            <p class="text-muted small mb-4">নবম-দশম শ্রেণির গণিতের ভিত্তি মজবুত করতে স্পেশাল কেয়ার ব্যাচ।</p>
+                            <div class="border-top pt-3">
+                                <a href="#" class="btn btn-sm btn-outline-primary w-100 rounded-pill">বিস্তারিত দেখুন <i class="fas fa-angle-right ms-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course 3 -->
+                <div class="col-md-4" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="card course-card h-100">
+                        <div class="course-thumb">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="English">
+                            <span class="badge-price">৳ ১৫০০</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-light text-primary">ল্যাঙ্গুয়েজ</span>
+                                <span class="text-warning"><i class="fas fa-star"></i> ৪.৮</span>
+                            </div>
+                            <h4 class="fw-bold mb-3">স্পোকেন ইংলিশ প্রো</h4>
+                            <p class="text-muted small mb-4">ঘরে বসে স্মার্টলি ইংরেজিতে কথা বলার ৩ মাসের নিবিড় প্রশিক্ষণ।</p>
+                            <div class="border-top pt-3">
+                                <a href="#" class="btn btn-sm btn-outline-primary w-100 rounded-pill">বিস্তারিত দেখুন <i class="fas fa-angle-right ms-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile View Button -->
+            <div class="text-center mt-4 d-md-none">
+                <a href="#" class="btn btn-outline-primary rounded-pill">সব দেখুন <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Counter Section -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-6" data-aos="zoom-in">
+                    <i class="fas fa-user-graduate fa-2x mb-3 text-white-50"></i>
+                    <h2 class="counter fw-bold" data-target="1500">0</h2>
+                    <p class="text-white-50 small">সফল শিক্ষার্থী</p>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-chalkboard-teacher fa-2x mb-3 text-white-50"></i>
+                    <h2 class="counter fw-bold" data-target="50">0</h2>
+                    <p class="text-white-50 small">অভিজ্ঞ শিক্ষক</p>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-book fa-2x mb-3 text-white-50"></i>
+                    <h2 class="counter fw-bold" data-target="120">0</h2>
+                    <p class="text-white-50 small">মোট কোর্স</p>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-award fa-2x mb-3 text-white-50"></i>
+                    <h2 class="counter fw-bold" data-target="99">0</h2>
+                    <p class="text-white-50 small">সাফল্যের হার (%)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Click to Zoom With Caption) -->
+    <section id="gallery" class="py-5 bg-white">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-primary fw-bold">ক্যাম্পাস লাইফ</h6>
+                <h2 class="fw-bold">ফটো গ্যালারি</h2>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4 col-6" data-aos="zoom-in">
+                    <div class="gallery-item" onclick="openZoom('https://images.unsplash.com/photo-1524178232363-1fb2b075b955?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80', 'আধুনিক মাল্টিমিডিয়া ক্লাসরুম')">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b955?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Class">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus gallery-icon"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="gallery-item" onclick="openZoom('https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80', 'সমৃদ্ধ লাইব্রেরি সুবিধা')">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Library">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus gallery-icon"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="gallery-item" onclick="openZoom('https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80', 'গ্রুপ স্টাডি ও ডিসকাশন')">
+                        <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Group Study">
+                        <div class="gallery-overlay"><i class="fas fa-search-plus gallery-icon"></i></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="#" class="btn btn-primary rounded-pill px-4 py-2">সম্পূর্ণ গ্যালারি দেখুন <i class="fas fa-images ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hidden Zoom Modal Structure -->
+    <div id="zoomModal" class="zoom-modal" onclick="closeZoom(event)">
+        <!-- CLOSE BUTTON -->
+        <div class="close-zoom" onclick="closeZoomForce()">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <!-- Wrapper Div to keep image and caption together -->
+        <div class="zoom-container-box">
+            <img class="zoom-modal-content" id="zoomImg">
+            <div id="zoomCaption" class="zoom-caption"></div>
+        </div>
+    </div>
+
+    <!-- Video Section -->
+    <section class="py-5 bg-dark">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-5 text-white mb-4 mb-lg-0 text-center text-lg-start" data-aos="fade-right">
+                    <h2 class="fw-bold mb-3">আমাদের ক্লাসরুমের এক ঝলক</h2>
+                    <p class="text-white-50">দেখুন কিভাবে আমাদের আধুনিক ক্লাসরুম এবং অভিজ্ঞ শিক্ষকরা পাঠদান করেন।</p>
+                    <a href="#" class="btn btn-outline-light rounded-pill mt-3">ইউটিউব চ্যানেল <i class="fab fa-youtube ms-2"></i></a>
+                </div>
+                <div class="col-lg-7" data-aos="zoom-in">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Director Profile Section -->
+    <section id="director" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-primary fw-bold">নেতৃত্বে</h6>
+                <h2 class="fw-bold">আমাদের পরিচালক</h2>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-8" data-aos="zoom-in">
+                    <div class="director-card">
+                        <div class="director-img-wrapper">
+                            <img src="https://img.freepik.com/free-photo/portrait-successful-man-having-stubble-posing-with-broad-smile-keeping-arms-folded_171337-1267.jpg" class="director-img" alt="Director">
+                        </div>
+                        <div class="director-info">
+                            <span class="director-designation">প্রতিষ্ঠাতা ও পরিচালক</span>
+                            <h3 class="fw-bold mb-2">ইশ তিয়াক আহ ম্মম</h3>
+                            <p class="text-muted mb-3">বিএসসি (অনার্স), এমএসসি (গণিত), জাতীয় বিশ</p>
+                            <p class="small text-secondary px-3">"শিক্ষাই জাতির মেরুদণ্ড। আমরা সেই মেরুদণ্ড শক্ত করতে অঙ্গীকারবদ্ধ।"</p>
+                            <a href="#" class="btn-view-profile">View Profile <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-white">
+        <div class="container py-5">
+            <div class="row bg-light shadow-sm rounded-4 overflow-hidden p-0 mx-0 flex-column-reverse flex-lg-row">
+                <div class="col-lg-5 p-4 p-md-5 bg-dark text-white d-flex flex-column justify-content-center">
+                    <h3 class="fw-bold mb-4">আমাদের ঠিকানা</h3>
+                    <p class="mb-5 text-white-50">অফিসে এসে সরাসরি কথা বলতে চাইলে নিচের ঠিকানায় চলে আসুন।</p>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="me-3 text-primary"><i class="fas fa-phone-alt fa-lg"></i></div>
+                        <div>
+                            <span class="d-block text-white-50 small">হটলাইন</span>
+                            <span class="fw-bold fs-5">+৮৮০ ১৬৪২ ৭৮৬০৩৪</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="me-3 text-primary"><i class="fas fa-map-marker-alt fa-lg"></i></div>
+                        <div>
+                            <span class="d-block text-white-50 small">লোকেশন</span>
+                            <span class="fw-bold"> মা জননী হাউজ, ডাক্তার পাড়া, কুমিল্লা </span>
+                        </div>
+                    </div>
+                    <!-- Contact Hours -->
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="me-3 text-primary"><i class="fas fa-clock fa-lg"></i></div>
+                        <div>
+                            <span class="d-block text-white-50 small">যোগাযোগের সময়</span>
+                            <span class="fw-bold">সকাল ১০টা - রাত ৮টা (প্রতিদিন)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 p-0">
+                    <div style="width: 100%; height: 350px; min-height: 100%;">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d228.75088139502586!2d91.17792636745912!3d23.459955800000014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37547fe3dd6f09e7%3A0x545e591830a8353!2sDilruba!5e0!3m2!1sen!2sbd!4v1770454839361!5m2!1sen!2sbd" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <!-- Column 1: About -->
+                <div class="col-lg-4 col-md-6">
+                    <h3 class="fw-bold text-white mb-3 d-flex align-items-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3413/3413535.png" alt="Logo" width="40" class="me-2">
+                        PCM With Istiakh Sir
+                    </h3>
+                    <p class="mb-4" style="line-height: 1.8; color: #dcdcdc;">
+                       আমরা বিশ্বাস করি সঠিক গাইডলাইন এবং আধুনিক শিক্ষা ব্যবস্থা একজন শিক্ষার্থীকে সাফল্যের শিখরে পৌঁছে দিতে পারে।
+                    </p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading">কুইক লিংক</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled footer-links">
+                                <li><a href="#home"><i class="fas fa-angle-right me-2 text-primary"></i>হোম</a></li>
+                                <li><a href="#features"><i class="fas fa-angle-right me-2 text-primary"></i>সুবিধাসমূহ</a></li>
+                                <li><a href="#courses"><i class="fas fa-angle-right me-2 text-primary"></i>কোর্সসমূহ</a></li>
+                                <li><a href="#director"><i class="fas fa-angle-right me-2 text-primary"></i>পরিচালক</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled footer-links">
+                                <li><a href="#gallery"><i class="fas fa-angle-right me-2 text-primary"></i>গ্যালারি</a></li>
+                                <li><a href="#contact"><i class="fas fa-angle-right me-2 text-primary"></i>যোগাযোগ</a></li>
+                                <li><a href="#"><i class="fas fa-angle-right me-2 text-primary"></i>প্রাইভেসি পলিসি</a></li>
+                                <li><a href="#"><i class="fas fa-angle-right me-2 text-primary"></i>শর্তাবলী</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3: Contact Info -->
+                <div class="col-lg-4 col-md-12">
+                    <h5 class="footer-heading">অফিসিয়াল যোগাযোগ</h5>
+                    <ul class="list-unstyled footer-links text-light">
+                        <li class="d-flex mb-3">
+                            <i class="fas fa-map-marker-alt text-primary mt-1 me-3"></i>
+                            <span style="color: #dcdcdc;">মা জননী হাউজ, ডাক্তার পাড়া, কুমিল্লা</span>
+                        </li>
+                        <li class="d-flex mb-3">
+                            <i class="fas fa-phone-alt text-primary mt-1 me-3"></i>
+                            <span style="color: #dcdcdc;">+880 1642 786034</span>
+                        </li>
+                        <li class="d-flex mb-3">
+                            <i class="fas fa-envelope text-primary mt-1 me-3"></i>
+                            <span style="color: #dcdcdc;">pcmwithistiakhsir@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start">
+                <p class="mb-2 mb-md-0 small" style="color: #bbb;">&copy; <span id="copyright-year"> 2026 </span> PCM With Istiakh Sir. All Rights Reserved.</p>
+                <p class="mb-0 small" style="color: #bbb;">Developed by <a href="#" class="text-white text-decoration-none fw-bold">Noor Mohammad Siam</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+
   
     <script src="script.js"></script>
 </body>
