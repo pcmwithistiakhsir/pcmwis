@@ -6,7 +6,7 @@
             offset: 60,
             duration: 800,
             easing: 'ease-in-out',
-            once: true
+            once: false
         });
 
         // 2. Custom Zoom Functionality Scripts
