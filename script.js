@@ -1,3 +1,5 @@
+        // Auto-update copyright year
+        document.getElementById("copyright-year").textContent = new Date().getFullYear();
 
         // 1. Initialize Animation Library (AOS)
         AOS.init({
