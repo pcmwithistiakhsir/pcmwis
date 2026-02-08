@@ -1,116 +1,130 @@
-        document.addEventListener("DOMContentLoaded", function () {
-            // আপনার এক্সটার্নাল লিংকসমূহ
-            const headerUrl = '/resources/header-and-footer/header.html'; 
-            const footerUrl = '/resources/header-and-footer/footer.html'; 
-        
-            // ১. হেডার লোড করা
-            fetch(headerUrl)
-                .then(response => {
-                    if (!response.ok) throw new Error("Header not found");
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                    // HTML আসার পর স্ক্রিপ্ট ইনিশিয়ালইজ করুন
-                    initializeHeaderLogic();
-                })
-                .catch(error => console.error('Error loading header:', error));
-        
-            // ২. ফুটার লোড করা
-            fetch(footerUrl)
-                .then(response => {
-                    if (!response.ok) throw new Error("Footer not found");
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                    // HTML আসার পর স্ক্রিপ্ট ইনিশিয়ালইজ করুন
-                    initializeFooterLogic();
-                })
-                .catch(error => console.error('Error loading footer:', error));
-        });
-        
-        // === Header Logic (Global Functions) ===
-        
-        // এই ফাংশনটি হেডার লোড হওয়ার পর কল হবে
-        function initializeHeaderLogic() {
-            // Sticky Navbar Logic
-            const navbar = document.getElementById('mainNavbar');
-            window.addEventListener('scroll', () => {
-                if (navbar) {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
-                }
-            });
-        
-            // Mobile Menu Toggle Logic
-            // এই ফাংশনগুলো window অবজেক্টে সেট করা হচ্ছে যাতে HTML এর onclick="func()" কাজ করে
-            window.toggleMobileMenu = function() {
-                const navMenu = document.getElementById('navMenu');
-                const overlay = document.getElementById('navOverlay');
-                const icon = document.getElementById('togglerIcon');
-                const isMobile = window.innerWidth <= 991;
-        
-                if (isMobile && navMenu) {
-                    navMenu.classList.toggle('active');
-                    overlay.classList.toggle('active');
-        
-                    // Icon Animation
-                    if (navMenu.classList.contains('active')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-times');
-                    } else {
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                }
-            };
-        
-            window.closeMenu = function() {
-                const isMobile = window.innerWidth <= 991;
-                if(isMobile) {
-                    const navMenu = document.getElementById('navMenu');
-                    const overlay = document.getElementById('navOverlay');
-                    const icon = document.getElementById('togglerIcon');
-                    
-                    if (navMenu) {
-                        navMenu.classList.remove('active');
-                        overlay.classList.remove('active');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                }
-            };
-        }
-        
-        // === Footer Logic ===
-        
-        function initializeFooterLogic() {
-            // 1. Auto Update Year
-            const yearSpan = document.getElementById("copyright-year");
-            if(yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ১. আপনার লিংকগুলো এখানে দিন (Cloudflare এ CORS enabled থাকতে হবে)
+    const headerUrl = '/resources/header-and-footer/header.html'; 
+    const footerUrl = /resources/header-and-footer/footer.html';
+
+    // ২. হেডার লোড করা
+    fetch(headerUrl)
+        .then(response => {
+            if (!response.ok) throw new Error("Header not found");
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            // হেডার লোড হওয়ার পর মেনু ফাংশন চালু করা
+            initHeaderFunctions();
+        })
+        .catch(error => console.error(error));
+    
+    // ৩. ফুটার লোড করা
+    fetch(footerUrl)
+        .then(response => {
+            if (!response.ok) throw new Error("Footer not found");
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('footer-container').innerHTML = data;
+            // ফুটার লোড হওয়ার পর সাল আপডেট ও ব্যাক টু টপ বাটন চালু করা
+            initFooterFunctions();
+        })
+        .catch(error => console.error(error));
+});
+
+// === হেডারের ফাংশনসমূহ ===
+function initHeaderFunctions() {
+    const navbar = document.getElementById('mainNavbar');
+    const togglerBtn = document.getElementById('navTogglerBtn');
+    const overlay = document.getElementById('navOverlay');
+    const navMenu = document.getElementById('navMenu');
+    const togglerIcon = document.getElementById('togglerIcon');
+    const navLinks = document.querySelectorAll('.nav-link-click');
+
+    // 1. Sticky Navbar Logic
+    window.addEventListener('scroll', () => {
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
-        
-            // 2. Back to Top Button Logic
-            const backBtn = document.getElementById('backToTop');
-            
-            // Scroll Event for Back to Top
-            window.addEventListener('scroll', () => {
-                if (backBtn) {
-                    if (window.scrollY > 300) {
-                        backBtn.style.display = 'flex';
-                    } else {
-                        backBtn.style.display = 'none';
-                    }
-                }
-            });
-        
-            // Click Function for Back to Top
-            window.scrollToTop = function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
         }
+    });
+
+    // 2. Mobile Menu Toggle Logic
+    if (togglerBtn && navMenu) {
+        togglerBtn.addEventListener('click', () => {
+            toggleMenuState();
+        });
+
+        // Overlay তে ক্লিক করলে মেনু বন্ধ হবে
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                closeMenuState();
+            });
+        }
+
+        // লিংকে ক্লিক করলে মেনু বন্ধ হবে
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMenuState();
+            });
+        });
+    }
+
+    // Helper Functions
+    function toggleMenuState() {
+        const isMobile = window.innerWidth <= 991;
+        if (isMobile) {
+            navMenu.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+            
+            // Icon Animation
+            if (navMenu.classList.contains('active')) {
+                togglerIcon.classList.remove('fa-bars');
+                togglerIcon.classList.add('fa-times');
+            } else {
+                togglerIcon.classList.remove('fa-times');
+                togglerIcon.classList.add('fa-bars');
+            }
+        }
+    }
+
+    function closeMenuState() {
+        const isMobile = window.innerWidth <= 991;
+        if (isMobile) {
+            navMenu.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            togglerIcon.classList.remove('fa-times');
+            togglerIcon.classList.add('fa-bars');
+        }
+    }
+}
+
+// === ফুটারের ফাংশনসমূহ ===
+function initFooterFunctions() {
+    // 1. Auto Update Year
+    const yearSpan = document.getElementById("copyright-year");
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // 2. Back to Top Button Logic
+    const backBtn = document.getElementById('backToTop');
+    
+    if (backBtn) {
+        // Scroll Logic
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backBtn.style.display = 'flex';
+            } else {
+                backBtn.style.display = 'none';
+            }
+        });
+
+        // Click Logic
+        backBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+}
