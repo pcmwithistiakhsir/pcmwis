@@ -24,40 +24,40 @@
 
         :root {
             --gallery-primary: #3b82f6; 
-            /* পুরো ওয়েবসাইটের ব্যাকগ্রাউন্ড কালার এখান থেকে পরিবর্তন করবেন */
             --main-bg-color: #f8fafc; 
             --gallery-text-dark: #1e293b;
         }
 
-        body {
-            /* পুরো বডিতে একই ব্যাকগ্রাউন্ড কালার */
+        /* --- ফিক্স: মোবাইল এবং ডেস্কটপ মোড লেআউট --- */
+        html, body {
             background-color: var(--main-bg-color);
             font-family: 'Poppins', 'Hind Siliguri', sans-serif;
-            overflow-x: hidden; /* ডানে-বামে স্ক্রল বা ফাঁকা জায়গা বন্ধ করার জন্য */
             width: 100%;
+            max-width: 100%; /* ডানে ফাঁকা জায়গা বন্ধ করার জন্য */
+            overflow-x: hidden; /* স্ক্রলবার ইস্যু ফিক্স */
         }
 
         /* ==========================
            গ্যালারি সেকশন স্টাইল
            ========================== */
         .gallery-section { 
-            padding: 40px 20px; 
-            /* ব্যাকগ্রাউন্ড ট্রান্সপারেন্ট রাখা হয়েছে যাতে বডির কালার দেখা যায় */
+            padding: 40px 15px; /* মোবাইলে প্যাডিং একটু কমানো হয়েছে */
             background-color: transparent; 
             min-height: 600px; 
-            /* আপনার রিকোয়ারমেন্ট অনুযায়ী মার্জিন টপ */
             margin-top: 100px; 
             width: 100%;
+            overflow: hidden; /* সেকশনের ভেতরের কন্টেন্ট বাইরে যাওয়া আটকাবে */
         }
 
-        /* আইকন ফিক্স: টেক্সট ফন্ট যাতে আইকনকে নষ্ট না করে */
         .gallery-section i {
             font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif;
         }
         
         .gallery-container { 
             max-width: 1200px; 
+            width: 100%;
             margin: 0 auto; 
+            padding: 0 5px; /* গ্রিড যাতে লেগে না যায় */
         }
 
         /* --- মেইন ট্যাব (ফটো / ভিডিও) --- */
@@ -66,7 +66,7 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
-            flex-wrap: wrap; /* ছোট স্ক্রিনে যাতে ভেঙে নিচে আসে */
+            flex-wrap: wrap; 
         }
 
         .gallery-main-tab-btn {
@@ -103,6 +103,8 @@
             margin-bottom: 25px;
             text-align: center;
             scrollbar-width: none;
+            /* মোবাইল টাচ ফিক্স */
+            -webkit-overflow-scrolling: touch; 
         }
         .gallery-sub-tab-wrapper::-webkit-scrollbar { display: none; }
 
@@ -128,12 +130,14 @@
             border-color: #1e293b;
         }
 
-        /* --- গ্যালারি গ্রিড --- */
+        /* --- গ্যালারি গ্রিড (ফিক্সড) --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            /* minmax 300px থেকে কমিয়ে 280px করা হয়েছে যাতে ছোট মোবাইলেও ফিট হয় */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             animation: galleryFadeIn 0.5s ease;
+            width: 100%;
         }
 
         /* --- ইমেজ কার্ড --- */
@@ -145,6 +149,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             aspect-ratio: 4/3;
+            width: 100%; /* কার্ড যাতে কন্টেইনারের বাইরে না যায় */
         }
 
         .gallery-item img {
@@ -191,6 +196,7 @@
             overflow: hidden;
             background: #000;
             display: block;
+            width: 100%;
         }
         .gallery-video-item iframe {
             position: absolute;
@@ -278,17 +284,19 @@
         
         /* রেস্পন্সিভ ফিক্স */
         @media(max-width: 600px){
-            .gallery-grid { grid-template-columns: 1fr; }
+            /* মোবাইল স্ক্রিনে গ্রিড ১ কলামে রাখার ফোর্স */
+            .gallery-grid { grid-template-columns: 1fr; } 
+            
             .gallery-lightbox-close { bottom: 20px; right: 20px; width: 50px; height: 50px; }
             .gallery-lightbox-caption { font-size: 15px; }
-            .gallery-section { padding: 30px 15px; }
+            .gallery-section { padding: 30px 10px; } /* প্যাডিং কমানো */
         }
 
     </style>
 </head>
 <body>
 
-        <!-- HEADER Placeholder -->
+    <!-- HEADER Placeholder -->
     <div id="header-placeholder"></div>
     
     <!-- ============ গ্যালারি সেকশন শুরু ============ -->
@@ -297,7 +305,7 @@
             
             <!-- মেইন ট্যাব (ফটো / ভিডিও) -->
             <div class="gallery-main-tab-nav">
-                <!-- ফটো বাটন (আইকন ক্লাস ঠিক করা হয়েছে) -->
+                <!-- ফটো বাটন -->
                 <button class="gallery-main-tab-btn gallery-active" onclick="gallerySwitchMainTab('gallery-photos', this)">
                     <i class="fas fa-images"></i> ফটো
                 </button>
@@ -379,7 +387,7 @@
     </section>
     <!-- ============ গ্যালারি সেকশন শেষ ============ -->
 
-        <!-- FOOTER Placeholder -->
+    <!-- FOOTER Placeholder -->
     <div id="footer-placeholder"></div>
 
     <!-- ============ লাইটবক্স কোড ============ -->
@@ -393,13 +401,13 @@
         </div>
     </div>
 
-        <!-- Scripts -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Load Header & Footer Script -->
     <script src="/resources/header-and-footer/load-header-footer.js"></script>
 
-    <!-- ============ জাভাস্ক্রিপ্ট (অপরিবর্তিত) ============ -->
+    <!-- ============ জাভাস্ক্রিপ্ট ============ -->
     <script>
         // ১. মেইন ট্যাব পরিবর্তন
         function gallerySwitchMainTab(tabId, btn) {
