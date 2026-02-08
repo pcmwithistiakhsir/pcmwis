@@ -1,8 +1,15 @@
-<!-- FOOTER CSS & HTML -->
+<!-- Footer CSS -->
 <style>
-    /* Footer Styles */
+    /* Footer specific variables */
+    :root {
+        --primary: #4e54c8;
+        --secondary: #8f94fb;
+        --accent: #ff9f43;
+        --footer-bg: #1a1d20;
+    }
+
     footer { 
-        background-color: #1a1d20; 
+        background-color: var(--footer-bg); 
         color: #dcdcdc; 
         padding: 60px 0 0; 
         font-size: 0.95rem; 
@@ -22,40 +29,50 @@
         bottom: 0; 
         width: 40px; 
         height: 3px; 
-        background: #ff9f43; 
+        background: var(--accent); 
     }
-    .footer-links li { margin-bottom: 12px; }
-    .footer-links a { color: #dcdcdc; text-decoration: none; transition: 0.3s; }
-    .footer-links a:hover { color: #8f94fb; padding-left: 5px; }
-    
+    .footer-links li { 
+        margin-bottom: 12px; 
+    }
+    .footer-links a { 
+        color: #dcdcdc; 
+        text-decoration: none; 
+        transition: 0.3s; 
+    }
+    .footer-links a:hover { 
+        color: var(--secondary); 
+        padding-left: 5px; 
+    }
     .social-icons a {
-        display: inline-flex; justify-content: center; align-items: center;
-        width: 40px; height: 40px; background: rgba(255,255,255,0.1); color: #fff;
-        border-radius: 50%; margin-right: 10px; transition: 0.3s; text-decoration: none;
+        display: inline-flex; 
+        justify-content: center; 
+        align-items: center;
+        width: 40px; 
+        height: 40px; 
+        background: rgba(255,255,255,0.1); 
+        color: #fff;
+        border-radius: 50%; 
+        margin-right: 10px; 
+        transition: 0.3s; 
+        text-decoration: none;
     }
-    .social-icons a:hover { background: #4e54c8; transform: translateY(-3px); }
-    
+    .social-icons a:hover { 
+        background: var(--primary); 
+        transform: translateY(-3px); 
+    }
     .footer-bottom { 
         background: #111; 
         padding: 20px 0; 
         margin-top: 50px; 
         border-top: 1px solid rgba(255,255,255,0.1); 
     }
-
-    /* Back to Top Button */
-    #backToTop {
-        position: fixed; bottom: 30px; right: 30px; background: #ff9f43; color: white;
-        width: 45px; height: 45px; border-radius: 50%; border: none; display: none;
-        align-items: center; justify-content: center; font-size: 18px; cursor: pointer;
-        z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s;
-    }
-    #backToTop:hover { transform: translateY(-5px); }
 </style>
 
+<!-- Footer HTML -->
 <footer>
     <div class="container">
         <div class="row g-5">
-            <!-- About -->
+            <!-- Column 1: About -->
             <div class="col-lg-4 col-md-6"><center>
                 <div class="mb-4">
                     <img src="/assets/images/footer-logo.png" alt="Footer Logo" width="300">
@@ -70,9 +87,9 @@
                     <a href="https://wa.me/8801642786034"><i class="fab fa-whatsapp"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
                 </div>
-            </center></div>
+            </div></center>
 
-            <!-- Quick Links -->
+            <!-- Column 2: Quick Links -->
             <div class="col-lg-4 col-md-6">
                 <h5 class="footer-heading">কুইক লিংক</h5>
                 <div class="row">
@@ -95,7 +112,7 @@
                 </div>
             </div>
 
-            <!-- Contact Info -->
+            <!-- Column 3: Contact Info -->
             <div class="col-lg-4 col-md-12">
                 <h5 class="footer-heading">অফিসিয়াল যোগাযোগ</h5>
                 <ul class="list-unstyled footer-links text-light">
@@ -124,6 +141,3 @@
         </div>
     </div>
 </footer>
-
-<!-- Back to Top Button -->
-<button id="backToTop"><i class="fas fa-arrow-up"></i></button>
