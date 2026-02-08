@@ -1,7 +1,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             // আপনার এক্সটার্নাল লিংকসমূহ
-            const headerUrl = 'https://nmsiam.pages.dev/header'; 
-            const footerUrl = 'https://nmsiam.pages.dev/footer'; 
+            const headerUrl = '/resources/header-and-footer/header.html'; 
+            const footerUrl = '/resources/header-and-footer/footer.html'; 
         
             // ১. হেডার লোড করা
             fetch(headerUrl)
