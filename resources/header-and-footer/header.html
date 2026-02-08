@@ -1,1 +1,173 @@
-
+    <!-- HEADER HTML + CSS -->
+    <style>
+        /* Navbar Specific CSS */
+        .custom-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 0;
+            background: transparent;
+            transition: all 0.4s ease;
+            z-index: 9999;
+        }
+    
+        .custom-navbar.scrolled {
+            background: #ffffff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 10px 0;
+        }
+    
+        .nav-container {
+            width: 100%;
+            max-width: 1320px; 
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .nav-brand img {
+            height: 80px;
+            width: auto;
+            display: block;
+        }
+    
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    
+        .nav-item a {
+            text-decoration: none;
+            color: #2d3436; /* Fallback color */
+            color: var(--dark, #2d3436);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 12px;
+            transition: 0.3s;
+            white-space: nowrap;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+    
+        .nav-item a:hover, .nav-item a.active {
+            color: #4e54c8; /* Fallback */
+            color: var(--primary, #4e54c8);
+        }
+    
+        /* Mobile Header */
+        .mobile-menu-header { display: none; }
+        .nav-toggler { display: none; background: none; border: none; cursor: pointer; padding: 0; }
+    
+        .toggler-box {
+            width: 45px;
+            height: 45px;
+            background-color: #1a1d20; /* Footer bg color */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 22px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    
+        .nav-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transition: 0.3s; z-index: -1;
+        }
+    
+        /* Button Style */
+        .btn-gradient {
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: white !important;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 84, 200, 0.5);
+        }
+    
+        /* RESPONSIVE */
+        @media (max-width: 991px) {
+            .nav-toggler { display: block; }
+            .nav-menu {
+                position: fixed; top: 0; left: -300px;
+                width: 280px; height: 100vh; background: white;
+                flex-direction: column; align-items: flex-start;
+                padding: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+                transition: 0.4s ease; z-index: 10000; gap: 10px;
+            }
+            .nav-menu.active { left: 0; }
+            .nav-overlay.active { opacity: 1; visibility: visible; z-index: 9998; }
+            .mobile-menu-header {
+                display: flex; justify-content: space-between;
+                align-items: center; width: 100%; margin-bottom: 20px;
+                border-bottom: 1px solid #eee; padding-bottom: 10px;
+            }
+            .mobile-title { font-size: 1.25rem; font-weight: 700; color: #4e54c8; margin: 0; }
+            .nav-item { width: 100%; }
+            .nav-item a { display: block; padding: 12px 15px; border-radius: 8px; font-size: 1.1rem; }
+            .nav-item a:hover { background: rgba(78, 84, 200, 0.08); transform: translateX(5px); }
+            .nav-btn-item { margin-top: 20px; text-align: center; }
+            .nav-item.nav-btn-item a {
+                display: inline-flex !important; width: auto !important;
+                padding: 10px 30px !important; color: white !important;
+            }
+        }
+    </style>
+    
+    <nav class="custom-navbar" id="mainNavbar">
+        <div class="nav-container">
+            <!-- Brand -->
+            <a class="nav-brand" href="#">
+                <img src="/assets/images/header-logo.png" alt="Logo">
+            </a>
+            
+            <!-- Mobile Overlay -->
+            <div class="nav-overlay" id="navOverlay" onclick="toggleMobileMenu()"></div>
+    
+            <!-- Nav Menu -->
+            <ul class="nav-menu" id="navMenu">
+                <!-- Mobile Header -->
+                <li class="mobile-menu-header">
+                    <h5 class="mobile-title">PCM With Istiakh Sir</h5>
+                </li>
+    
+                <li class="nav-item"><a href="#home" class="active" onclick="closeMenu()">হোম</a></li>
+                <li class="nav-item"><a href="#features" onclick="closeMenu()">সুবিধাসমূহ</a></li>
+                <li class="nav-item"><a href="#courses" onclick="closeMenu()">কোর্স</a></li>
+                <li class="nav-item"><a href="#director" onclick="closeMenu()">পরিচালক</a></li>
+                <li class="nav-item nav-btn-item">
+                    <a href="#contact" class="btn-gradient" onclick="closeMenu()">
+                        ভর্তি হোন <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                    </a>
+                </li>
+            </ul>
+    
+            <!-- Mobile Toggler -->
+            <button class="nav-toggler" onclick="toggleMobileMenu()">
+                <div class="toggler-box">
+                    <i class="fas fa-bars" id="togglerIcon"></i>
+                </div>
+            </button>
+        </div>
+    </nav>
