@@ -105,6 +105,7 @@
             scrollbar-width: none;
             /* মোবাইল টাচ ফিক্স */
             -webkit-overflow-scrolling: touch; 
+            scroll-behavior: smooth; /* স্মুথ স্ক্রলিং */
         }
         .gallery-sub-tab-wrapper::-webkit-scrollbar { display: none; }
 
@@ -442,9 +443,15 @@
 
         // ২. ফটো ফিল্টার
         function galleryFilterPhotos(category, btn) {
+            // অ্যাক্টিভ ক্লাস চেঞ্জ
             btn.parentElement.querySelectorAll('.gallery-sub-tab-btn').forEach(b => b.classList.remove('gallery-active'));
             btn.classList.add('gallery-active');
 
+            // --- নতুন কোড: বাটনকে সেন্টারে স্ক্রল করা ---
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            // ------------------------------------------
+
+            // ফিল্টারিং লজিক
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(item => {
                 if(category === 'all' || item.classList.contains('gallery-cat-' + category)) {
@@ -460,9 +467,15 @@
 
         // ৩. ভিডিও ফিল্টার
         function galleryFilterVideos(category, btn) {
+            // অ্যাক্টিভ ক্লাস চেঞ্জ
             btn.parentElement.querySelectorAll('.gallery-sub-tab-btn').forEach(b => b.classList.remove('gallery-active'));
             btn.classList.add('gallery-active');
 
+            // --- নতুন কোড: বাটনকে সেন্টারে স্ক্রল করা ---
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            // ------------------------------------------
+
+            // ফিল্টারিং লজিক
             const videos = document.querySelectorAll('.gallery-video-item');
             videos.forEach(vid => {
                 if(category === 'all' || vid.classList.contains('gallery-v-' + category)) {
