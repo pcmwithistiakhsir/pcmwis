@@ -12,6 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- Global Fix for White Space --- */
+        html, body {
+            overflow-x: hidden; /* ডানপাশের ফাঁকা জায়গা বন্ধ করার জন্য */
+            width: 100%;
+        }
+
         /* সম্পূর্ণ সেকশন র‍্যাপার */
         .courses-section-wrapper {
             /* ভেরিয়েবল */
@@ -28,11 +34,12 @@
             padding: 3rem 1rem;
             color: var(--courses-text-dark);
             width: 100%;
-            /* ফন্ট ফ্যামিলি এখানে দেওয়া হলো যাতে টেক্সট ইনহেরিট করে, কিন্তু আইকন ওভাররাইড না হয় */
+            /* ফন্ট ফ্যামিলি */
             font-family: 'Hind Siliguri', sans-serif;
+            overflow: hidden; /* সেকশনের বাইরে কন্টেন্ট যাওয়া আটকাবে */
         }
 
-        /* রিসেট - ফন্ট ফ্যামিলি এখান থেকে সরানো হয়েছে */
+        /* রিসেট */
         .courses-section-wrapper * {
             margin: 0;
             padding: 0;
@@ -42,7 +49,8 @@
         .courses-container {
             max-width: 1280px;
             margin: 0 auto;
-            overflow: hidden;
+            /* overflow hidden এখানে রাখা ভালো, তবে কার্ডের শ্যাডো কাটার ভয় থাকলে বাদ দেওয়া যেতে পারে। 
+               যেহেতু আমরা গ্রিড ফিক্স করেছি, তাই সমস্যা হবে না। */
         }
 
         /* --- হেডার (Margin Top 100px) --- */
@@ -112,7 +120,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             flex-shrink: 0;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
-            font-family: inherit; /* প্যারেন্ট ফন্ট ব্যবহার করবে */
+            font-family: inherit;
         }
 
         .courses-tab-btn:hover {
@@ -131,7 +139,8 @@
         /* --- কার্ড গ্রিড --- */
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            /* FIX: 300px থেকে কমিয়ে 280px করা হয়েছে যাতে ছোট মোবাইলেও পাশাপাশি স্পেস থাকে এবং স্ক্রলবার না আসে */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             padding: 0 5px;
         }
@@ -273,7 +282,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            /* আইকনের জন্য ফন্ট ফ্যামিলি এখানে রিসেট করার প্রয়োজন নেই, ইনহেরিট্যান্স কাজ করবে */
         }
 
         .courses-btn-enroll:hover {
