@@ -12,15 +12,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Global Fix for Layout Stability --- */
-        html, body {
-            width: 100%;
-            height: 100%;
+        /* --- Global Fixes --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* হরাইজন্টাল স্ক্রল বা সাদা জায়গা বন্ধ করার জন্য */
-            scroll-behavior: smooth;
-            font-family: 'Hind Siliguri', sans-serif;
+            width: 100%;
+            overflow-x: hidden; /* হরিজন্টাল স্ক্রল বা ড্র্যাগ বন্ধ করে */
+            background-color: #f4f7fb; /* বডির ব্যাকগ্রাউন্ড কালার সেকশনের সাথে মেলানো হলো */
+        }
+
+        /* সমস্ত এলিমেন্টের বক্স সাইজিং ঠিক রাখা */
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         /* সম্পূর্ণ সেকশন র‍্যাপার */
@@ -39,29 +46,22 @@
             padding: 3rem 1rem;
             color: var(--courses-text-dark);
             width: 100%;
-            /* max-width: 100vw; <- এই লাইনটি সমস্যা করছিল, তাই বাদ দেওয়া হলো */
-            box-sizing: border-box;
+            /* max-width: 100vw; <--- এটি সরিয়ে দেওয়া হয়েছে কারণ এটি স্ক্রলবারের কারণে সমস্যা করে */
+            font-family: 'Hind Siliguri', sans-serif;
             position: relative;
-        }
-
-        .courses-section-wrapper * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
 
         .courses-container {
             max-width: 1280px;
             margin: 0 auto;
             width: 100%;
-            padding: 0 15px; /* ছোট স্ক্রিনে কন্টেন্ট যেন একদম লেগে না যায় */
         }
 
         /* --- হেডার --- */
         .courses-header {
             text-align: center;
             margin-bottom: 2.5rem;
-            margin-top: 50px; /* উপরের মার্জিন সামান্য কমানো হয়েছে যাতে সামঞ্জস্য থাকে */
+            margin-top: 100px; 
         }
 
         .courses-badge {
@@ -92,7 +92,11 @@
         .courses-tabs-wrapper {
             position: relative;
             margin-bottom: 3rem;
+            /* মাস্ক ইমেজ কিছুটা এডজাস্ট করা হয়েছে যাতে মোবাইল ভিউতে কেটে না যায় */
+            mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
             width: 100%;
+            overflow: hidden; /* ট্যাব এরিয়া যাতে ডানে বা বামে পেজকে ধাক্কা না দেয় */
         }
 
         .courses-tabs-list {
@@ -104,7 +108,6 @@
             scrollbar-width: none;
             justify-content: flex-start;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
         }
 
         @media (min-width: 992px) {
@@ -146,7 +149,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
-            width: 100%;
+            padding: 0 5px;
+            width: 100%; /* গ্রিড যাতে কন্টেইনারের বাইরে না যায় */
         }
 
         .courses-card {
@@ -158,7 +162,7 @@
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 100%; /* গ্রিড হাইট ফিক্স */
+            width: 100%; /* কার্ড যাতে গ্রিড কলামের বাইরে না যায় */
         }
 
         .courses-card.courses-hidden { display: none; }
@@ -296,14 +300,14 @@
 
         /* --- রেসপনসিভ --- */
         @media (max-width: 768px) {
-            .courses-section-wrapper { padding: 2rem 0.5rem; } /* মোবাইলে প্যাডিং কমানো হলো */
+            .courses-section-wrapper { padding: 2rem 1rem; }
             .courses-header { padding: 0 1rem; }
             .courses-main-title { font-size: 1.8rem; }
             
             .courses-tabs-wrapper { margin-bottom: 2rem; }
             .courses-tabs-list { 
-                padding-left: 0.5rem; 
-                padding-right: 0.5rem;
+                padding-left: 1rem; 
+                padding-right: 1rem;
                 justify-content: flex-start;
             }
             .courses-tab-btn { 
@@ -313,8 +317,7 @@
             
             .courses-grid {
                 grid-template-columns: 1fr;
-                /* মোবাইলে কার্ডগুলো যেন লেগে না যায় */
-                padding: 0 0.5rem; 
+                padding: 0;
             }
         }
     </style>
@@ -480,46 +483,38 @@
         const tabs = document.querySelectorAll('.courses-tab-btn');
         const cards = document.querySelectorAll('.courses-card');
 
-        // ট্যাব বাটনে ক্লিক ইভেন্ট
-        if(tabs && cards) {
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // একটিভ ক্লাস টগল করা
-                    tabs.forEach(t => t.classList.remove('courses-tab-active'));
-                    tab.classList.add('courses-tab-active');
-                    
-                    // ট্যাব মেনু স্ক্রলিং (মোবাইল ভিউয়ের জন্য)
-                    if (tabsWrapper) {
-                        const offset = tab.offsetLeft - (tabsWrapper.clientWidth / 2) + (tab.clientWidth / 2);
-                        tabsWrapper.scrollTo({
-                            left: offset,
-                            behavior: 'smooth'
-                        });
-                    }
-
-                    const filter = tab.getAttribute('data-filter');
-
-                    // কার্ড ফিল্টারিং
-                    cards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.classList.remove('courses-hidden');
-                            // সিম্পল এনিমেশন
-                            if(card.animate) {
-                                card.animate([
-                                    { opacity: 0, transform: 'translateY(10px)' },
-                                    { opacity: 1, transform: 'translateY(0)' }
-                                ], {
-                                    duration: 300,
-                                    easing: 'ease-out'
-                                });
-                            }
-                        } else {
-                            card.classList.add('courses-hidden');
-                        }
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('courses-tab-active'));
+                tab.classList.add('courses-tab-active');
+                
+                // শুধুমাত্র ট্যাব বারটিকে স্ক্রল করবে, পুরো পেইজ নয়
+                if (tabsWrapper) {
+                    const offset = tab.offsetLeft - (tabsWrapper.clientWidth / 2) + (tab.clientWidth / 2);
+                    tabsWrapper.scrollTo({
+                        left: offset,
+                        behavior: 'smooth'
                     });
+                }
+
+                const filter = tab.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.classList.remove('courses-hidden');
+                        card.animate([
+                            { opacity: 0, transform: 'translateY(10px)' },
+                            { opacity: 1, transform: 'translateY(0)' }
+                        ], {
+                            duration: 300,
+                            easing: 'ease-out'
+                        });
+                    } else {
+                        card.classList.add('courses-hidden');
+                    }
                 });
             });
-        }
+        });
     });
 </script>
 
