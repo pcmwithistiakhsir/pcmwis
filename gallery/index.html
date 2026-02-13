@@ -105,7 +105,8 @@
             scrollbar-width: none;
             /* মোবাইল টাচ ফিক্স */
             -webkit-overflow-scrolling: touch; 
-            scroll-behavior: smooth; /* স্মুথ স্ক্রলিং */
+            /* স্মুথ স্ক্রলিং CSS দিয়েও রাখা হলো */
+            scroll-behavior: smooth; 
         }
         .gallery-sub-tab-wrapper::-webkit-scrollbar { display: none; }
 
@@ -441,17 +442,32 @@
             btn.classList.add('gallery-active');
         }
 
+        // ============================================
+        // নতুন ফাংশন: ট্যাব সেন্টারে আনার জন্য (ফিক্সড)
+        // ============================================
+        function centerActiveTab(btn) {
+            const container = btn.parentElement;
+            
+            // বাটনের মাঝখানের পজিশন বের করা
+            // (বাটনের বাম পাশের দূরত্ব - কন্টেইনারের অর্ধেক + বাটনের অর্ধেক)
+            const scrollLeftPosition = btn.offsetLeft - (container.clientWidth / 2) + (btn.clientWidth / 2);
+            
+            // কন্টেইনারটিকে স্ক্রল করা (পুরো বডি নয়)
+            container.scrollTo({
+                left: scrollLeftPosition,
+                behavior: 'smooth'
+            });
+        }
+
         // ২. ফটো ফিল্টার
         function galleryFilterPhotos(category, btn) {
-            // অ্যাক্টিভ ক্লাস চেঞ্জ
             btn.parentElement.querySelectorAll('.gallery-sub-tab-btn').forEach(b => b.classList.remove('gallery-active'));
             btn.classList.add('gallery-active');
 
-            // --- নতুন কোড: বাটনকে সেন্টারে স্ক্রল করা ---
-            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            // ------------------------------------------
+            // --- ফিক্সড স্ক্রলিং ফাংশন কল করা হলো ---
+            centerActiveTab(btn);
+            // ------------------------------------
 
-            // ফিল্টারিং লজিক
             const items = document.querySelectorAll('.gallery-item');
             items.forEach(item => {
                 if(category === 'all' || item.classList.contains('gallery-cat-' + category)) {
@@ -467,15 +483,13 @@
 
         // ৩. ভিডিও ফিল্টার
         function galleryFilterVideos(category, btn) {
-            // অ্যাক্টিভ ক্লাস চেঞ্জ
             btn.parentElement.querySelectorAll('.gallery-sub-tab-btn').forEach(b => b.classList.remove('gallery-active'));
             btn.classList.add('gallery-active');
 
-            // --- নতুন কোড: বাটনকে সেন্টারে স্ক্রল করা ---
-            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            // ------------------------------------------
+            // --- ফিক্সড স্ক্রলিং ফাংশন কল করা হলো ---
+            centerActiveTab(btn);
+            // ------------------------------------
 
-            // ফিল্টারিং লজিক
             const videos = document.querySelectorAll('.gallery-video-item');
             videos.forEach(vid => {
                 if(category === 'all' || vid.classList.contains('gallery-v-' + category)) {
