@@ -14,7 +14,7 @@
     <style>
         /* --- Global Fix for White Space --- */
         html, body {
-            overflow-x: hidden; /* ডানপাশের ফাঁকা জায়গা বন্ধ করার জন্য */
+            overflow-x: hidden;
             width: 100%;
         }
 
@@ -34,12 +34,10 @@
             padding: 3rem 1rem;
             color: var(--courses-text-dark);
             width: 100%;
-            /* ফন্ট ফ্যামিলি */
             font-family: 'Hind Siliguri', sans-serif;
-            overflow: hidden; /* সেকশনের বাইরে কন্টেন্ট যাওয়া আটকাবে */
+            overflow: hidden;
         }
 
-        /* রিসেট */
         .courses-section-wrapper * {
             margin: 0;
             padding: 0;
@@ -49,11 +47,9 @@
         .courses-container {
             max-width: 1280px;
             margin: 0 auto;
-            /* overflow hidden এখানে রাখা ভালো, তবে কার্ডের শ্যাডো কাটার ভয় থাকলে বাদ দেওয়া যেতে পারে। 
-               যেহেতু আমরা গ্রিড ফিক্স করেছি, তাই সমস্যা হবে না। */
         }
 
-        /* --- হেডার (Margin Top 100px) --- */
+        /* --- হেডার --- */
         .courses-header {
             text-align: center;
             margin-bottom: 2.5rem;
@@ -136,11 +132,12 @@
             font-weight: 600;
         }
 
-        /* --- কার্ড গ্রিড --- */
+        /* --- কার্ড গ্রিড (SOLVED HERE) --- */
         .courses-grid {
             display: grid;
-            /* FIX: 300px থেকে কমিয়ে 280px করা হয়েছে যাতে ছোট মোবাইলেও পাশাপাশি স্পেস থাকে এবং স্ক্রলবার না আসে */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            /* FIX: auto-fit এর বদলে auto-fill ব্যবহার করা হয়েছে। 
+               এতে কার্ড একটা থাকলেও সেটা বাম পাশে নির্দিষ্ট সাইজেই থাকবে, পুরো স্ক্রিন জুড়ে লম্বা হবে না। */
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
             padding: 0 5px;
         }
