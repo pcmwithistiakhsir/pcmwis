@@ -12,10 +12,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Global Fix: পেজের সাইড স্ক্রল বন্ধ রাখা --- */
-        html, body {
-            overflow-x: hidden;
+        /* --- Global Fix for Desktop Mode Scaling --- */
+        html {
+            /* html ট্যাগে overflow-x বা width দিলে ডেস্কটপ মোডে স্কেলিং সমস্যা করে, তাই এখানে বাদ দেওয়া হলো */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden; /* ডানপাশের সাদা জায়গা বা স্ক্রলবার বন্ধ রাখার জন্য শুধু বডিতে দেওয়া হলো */
             width: 100%;
+            margin: 0;
+            padding: 0;
             position: relative;
         }
 
@@ -35,8 +42,10 @@
             padding: 3rem 1rem;
             color: var(--courses-text-dark);
             width: 100%;
+            max-width: 100vw; /* ভিউপোর্টের চেয়ে বড় হতে দিবে না */
             font-family: 'Hind Siliguri', sans-serif;
             overflow: hidden; /* সেকশনের ভেতরের কন্টেন্ট বাইরে যাওয়া আটকাবে */
+            box-sizing: border-box;
         }
 
         .courses-section-wrapper * {
@@ -48,6 +57,7 @@
         .courses-container {
             max-width: 1280px;
             margin: 0 auto;
+            width: 100%; /* কন্টেইনার যেন সবসময় প্যারেন্টের মাপে থাকে */
         }
 
         /* --- হেডার --- */
@@ -85,7 +95,6 @@
         .courses-tabs-wrapper {
             position: relative;
             margin-bottom: 3rem;
-            /* মাস্ক এফেক্ট */
             mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
             width: 100%;
@@ -96,10 +105,10 @@
             gap: 10px;
             overflow-x: auto;
             white-space: nowrap;
-            padding: 10px 5px; /* প্যাডিং ঠিক রাখা হয়েছে */
+            padding: 10px 5px;
             scrollbar-width: none;
             justify-content: flex-start;
-            scroll-behavior: smooth; /* স্মুথ স্ক্রল */
+            scroll-behavior: smooth;
         }
 
         @media (min-width: 992px) {
@@ -139,8 +148,7 @@
         /* --- কার্ড গ্রিড --- */
         .courses-grid {
             display: grid;
-            /* auto-fill: কার্ড কম থাকলেও বামে থাকবে, বড় হবে না */
-            /* minmax(280px, 1fr): মোবাইলে ফিট হবে, স্ক্রলবার আসবে না */
+            /* auto-fill ও minmax ব্যবহার করা হয়েছে যাতে কার্ড একটা থাকলেও বামে থাকে এবং ডেস্কটপ মোডে ঠিকঠাক দেখায় */
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             padding: 0 5px;
@@ -480,15 +488,9 @@
                 tabs.forEach(t => t.classList.remove('courses-tab-active'));
                 tab.classList.add('courses-tab-active');
                 
-                // FIX: scrollIntoView এর বদলে নিজস্ব ক্যালকুলেশন ব্যবহার করা হয়েছে
-                // এটি নিশ্চিত করে যে শুধুমাত্র ট্যাব বারটিই স্ক্রল হবে, পুরো পেজ নয়।
+                // শুধুমাত্র ট্যাব বারটিকে স্ক্রল করবে, পুরো পেইজ নয়
                 if (tabsWrapper) {
-                    const tabRect = tab.getBoundingClientRect();
-                    const wrapperRect = tabsWrapper.getBoundingClientRect();
-                    
-                    // ট্যাবের বর্তমান পজিশন বের করে সেন্টারে আনার লজিক
                     const offset = tab.offsetLeft - (tabsWrapper.clientWidth / 2) + (tab.clientWidth / 2);
-                    
                     tabsWrapper.scrollTo({
                         left: offset,
                         behavior: 'smooth'
