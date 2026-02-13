@@ -1,1 +1,497 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | PCM With Istiakh Sir</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* সম্পূর্ণ সেকশন র‍্যাপার */
+        .courses-section-wrapper {
+            /* ভেরিয়েবল */
+            --courses-primary: #4f46e5;
+            --courses-primary-hover: #4338ca;
+            --courses-bg: #f4f7fb;
+            --courses-card-bg: #ffffff;
+            --courses-text-dark: #1f2937;
+            --courses-text-light: #64748b;
+            --courses-border: #e2e8f0;
+            --courses-radius: 16px;
 
+            background-color: var(--courses-bg);
+            padding: 3rem 1rem;
+            color: var(--courses-text-dark);
+            width: 100%;
+            /* ফন্ট ফ্যামিলি এখানে দেওয়া হলো যাতে টেক্সট ইনহেরিট করে, কিন্তু আইকন ওভাররাইড না হয় */
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        /* রিসেট - ফন্ট ফ্যামিলি এখান থেকে সরানো হয়েছে */
+        .courses-section-wrapper * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .courses-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        /* --- হেডার (Margin Top 100px) --- */
+        .courses-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            margin-top: 100px; 
+        }
+
+        .courses-badge {
+            background: #e0e7ff;
+            color: var(--courses-primary);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .courses-main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .courses-subtitle {
+            color: var(--courses-text-light);
+            font-size: 1.1rem;
+        }
+
+        /* --- ট্যাব --- */
+        .courses-tabs-wrapper {
+            position: relative;
+            margin-bottom: 3rem;
+            mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+        }
+
+        .courses-tabs-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 5px;
+            scrollbar-width: none;
+            justify-content: flex-start; 
+        }
+
+        @media (min-width: 992px) {
+            .courses-tabs-list { justify-content: center; }
+        }
+
+        .courses-tabs-list::-webkit-scrollbar { display: none; } 
+
+        .courses-tab-btn {
+            padding: 10px 24px;
+            border: 1px solid transparent; 
+            background: #ffffff;
+            color: var(--courses-text-light);
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
+            font-family: inherit; /* প্যারেন্ট ফন্ট ব্যবহার করবে */
+        }
+
+        .courses-tab-btn:hover {
+            background-color: #eef2ff;
+            color: var(--courses-primary);
+            transform: translateY(-1px);
+        }
+
+        .courses-tab-btn.courses-tab-active {
+            background-color: var(--courses-primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+            font-weight: 600;
+        }
+
+        /* --- কার্ড গ্রিড --- */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 5px;
+        }
+
+        .courses-card {
+            background: var(--courses-card-bg);
+            border-radius: var(--courses-radius);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--courses-border);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .courses-card.courses-hidden { display: none; }
+        
+        .courses-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .courses-card-thumb {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--courses-border);
+        }
+
+        .courses-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .courses-card:hover .courses-card-thumb img { transform: scale(1.08); }
+
+        .courses-cat-label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(31, 41, 55, 0.85);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        .courses-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .courses-meta-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--courses-text-light);
+            font-weight: 500;
+        }
+
+        .courses-rating-score { color: #f59e0b; font-weight: 700; }
+
+        .courses-item-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--courses-text-dark);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .courses-desc {
+            font-size: 0.95rem;
+            color: var(--courses-text-light);
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .courses-feature-list {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .courses-feat-tag {
+            font-size: 0.8rem;
+            color: #475569;
+            background: #f8fafc;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .courses-card-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--courses-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .courses-price-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .courses-price-label {
+            font-size: 0.75rem;
+            color: var(--courses-text-light);
+            margin-bottom: -2px;
+        }
+
+        .courses-price-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ea580c;
+        }
+
+        .courses-btn-enroll {
+            padding: 10px 24px;
+            background: var(--courses-primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            /* আইকনের জন্য ফন্ট ফ্যামিলি এখানে রিসেট করার প্রয়োজন নেই, ইনহেরিট্যান্স কাজ করবে */
+        }
+
+        .courses-btn-enroll:hover {
+            background-color: var(--courses-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* --- রেসপনসিভ --- */
+        @media (max-width: 768px) {
+            .courses-section-wrapper { padding: 2rem 1rem; }
+            .courses-header { padding: 0 1rem; }
+            .courses-main-title { font-size: 1.8rem; }
+            
+            .courses-tabs-wrapper { margin-bottom: 2rem; }
+            .courses-tabs-list { 
+                padding-left: 1rem; 
+                padding-right: 1rem;
+                justify-content: flex-start;
+            }
+            .courses-tab-btn { 
+                padding: 8px 18px; 
+                font-size: 0.9rem; 
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+      <!-- HEADER Placeholder -->
+    <div id="header-placeholder"></div>
+
+<div class="courses-section-wrapper">
+    <div class="courses-container">
+        
+        <header class="courses-header">
+            <span class="courses-badge">জনপ্রিয় কোর্স</span>
+            <h1 class="courses-main-title">তোমার লক্ষ্য নির্ধারণ করো</h1>
+            <p class="courses-subtitle">দেশসেরা মেন্টরদের সাথে শিখুন এবং নিজেকে প্রস্তুত করুন</p>
+        </header>
+
+        <!-- ট্যাব -->
+        <div class="courses-tabs-wrapper">
+            <div class="courses-tabs-list">
+                <button class="courses-tab-btn courses-tab-active" data-filter="all">সব দেখুন</button>
+                <button class="courses-tab-btn" data-filter="class-6">৬ষ্ঠ শ্রেণি</button>
+                <button class="courses-tab-btn" data-filter="class-7">৭ম শ্রেণি</button>
+                <button class="courses-tab-btn" data-filter="class-8">৮ম শ্রেণি</button>
+                <button class="courses-tab-btn" data-filter="ssc">SSC ব্যাচ</button>
+                <button class="courses-tab-btn" data-filter="hsc">HSC ব্যাচ</button>
+                <button class="courses-tab-btn" data-filter="skill">স্কিল ডেভেলপমেন্ট</button>
+                <button class="courses-tab-btn" data-filter="english">স্পোকেন ইংলিশ</button>
+            </div>
+        </div>
+
+        <div class="courses-grid">
+
+            <!-- কার্ড ১ -->
+            <div class="courses-card" data-category="class-8">
+                <div class="courses-card-thumb">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chemistry">
+                    <span class="courses-cat-label">৮ম শ্রেণি</span>
+                </div>
+                <div class="courses-card-content">
+                    <div class="courses-meta-info">
+                        <span><i class="far fa-clock"></i> ৬ মাস</span>
+                        <div class="courses-rating-score"><i class="fas fa-star"></i> ৪.৯</div>
+                    </div>
+                    <h3 class="courses-item-title">৮ম শ্রেণি বিজ্ঞান স্পেশাল ব্যাচ</h3>
+                    <p class="courses-desc">নতুন কারিকুলাম অনুযায়ী হাতে-কলমে বিজ্ঞান শেখার কমপ্লিট সল্যুশন।</p>
+                    <div class="courses-feature-list">
+                        <span class="courses-feat-tag"><i class="fas fa-video"></i> লাইভ</span>
+                        <span class="courses-feat-tag"><i class="fas fa-book"></i> শিট</span>
+                    </div>
+                    
+                    <div class="courses-card-footer">
+                        <div class="courses-price-box">
+                            <span class="courses-price-label">কোর্স ফি</span>
+                            <span class="courses-price-amount">৳ ১৫০০</span>
+                        </div>
+                        <a href="#" class="courses-btn-enroll">ভর্তি হোন <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- কার্ড ২ -->
+            <div class="courses-card" data-category="ssc">
+                <div class="courses-card-thumb">
+                    <img src="https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Physics">
+                    <span class="courses-cat-label">SSC ২০২৫</span>
+                </div>
+                <div class="courses-card-content">
+                    <div class="courses-meta-info">
+                        <span><i class="far fa-clock"></i> ৮ মাস</span>
+                        <div class="courses-rating-score"><i class="fas fa-star"></i> ৪.৮</div>
+                    </div>
+                    <h3 class="courses-item-title">ফিজিক্স ও কেমিস্ট্রি মাস্টারক্লাস</h3>
+                    <p class="courses-desc">SSC পরীক্ষার্থীদের জন্য শর্ট সিলেবাস ও বেসিক ক্লিয়ার করার সেরা কোর্স।</p>
+                    <div class="courses-feature-list">
+                        <span class="courses-feat-tag"><i class="fas fa-file-alt"></i> এক্সাম</span>
+                        <span class="courses-feat-tag"><i class="fas fa-user-friends"></i> মেন্টর</span>
+                    </div>
+
+                    <div class="courses-card-footer">
+                        <div class="courses-price-box">
+                            <span class="courses-price-label">কোর্স ফি</span>
+                            <span class="courses-price-amount">৳ ২৫০০</span>
+                        </div>
+                        <a href="#" class="courses-btn-enroll">ভর্তি হোন <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- কার্ড ৩ -->
+            <div class="courses-card" data-category="skill">
+                <div class="courses-card-thumb">
+                    <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coding">
+                    <span class="courses-cat-label">স্কিল</span>
+                </div>
+                <div class="courses-card-content">
+                    <div class="courses-meta-info">
+                        <span><i class="far fa-clock"></i> ৩ মাস</span>
+                        <div class="courses-rating-score"><i class="fas fa-star"></i> ৫.০</div>
+                    </div>
+                    <h3 class="courses-item-title">শুরু হোক কোডিং শেখা</h3>
+                    <p class="courses-desc">পাইথন প্রোগ্রামিং দিয়ে কোডিং জগতে তোমার প্রথম পদক্ষেপ নাও।</p>
+                    <div class="courses-feature-list">
+                        <span class="courses-feat-tag"><i class="fas fa-laptop-code"></i> প্রজেক্ট</span>
+                        <span class="courses-feat-tag"><i class="fas fa-certificate"></i> সনদ</span>
+                    </div>
+
+                    <div class="courses-card-footer">
+                        <div class="courses-price-box">
+                            <span class="courses-price-label">কোর্স ফি</span>
+                            <span class="courses-price-amount">৳ ১০০০</span>
+                        </div>
+                        <a href="#" class="courses-btn-enroll">ভর্তি হোন <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- কার্ড ৪ -->
+            <div class="courses-card" data-category="class-7">
+                <div class="courses-card-thumb">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Math">
+                    <span class="courses-cat-label">৭ম শ্রেণি</span>
+                </div>
+                <div class="courses-card-content">
+                    <div class="courses-meta-info">
+                        <span><i class="far fa-clock"></i> ৬ মাস</span>
+                        <div class="courses-rating-score"><i class="fas fa-star"></i> ৪.৭</div>
+                    </div>
+                    <h3 class="courses-item-title">গণিত অলিম্পিয়াড প্রস্তুতি</h3>
+                    <p class="courses-desc">গণিতের ভয় জয় করে অলিম্পিয়াডের জন্য নিজেকে প্রস্তুত করো।</p>
+                    <div class="courses-feature-list">
+                        <span class="courses-feat-tag"><i class="fas fa-brain"></i> আইকিউ</span>
+                        <span class="courses-feat-tag"><i class="fas fa-video"></i> ক্লাস</span>
+                    </div>
+
+                    <div class="courses-card-footer">
+                        <div class="courses-price-box">
+                            <span class="courses-price-label">কোর্স ফি</span>
+                            <span class="courses-price-amount">৳ ১২০০</span>
+                        </div>
+                        <a href="#" class="courses-btn-enroll">ভর্তি হোন <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+      <!-- FOOTER Placeholder -->
+    <div id="footer-placeholder"></div>
+
+      <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Load Header & Footer Script -->
+    <script src="/resources/header-and-footer/load-header-footer.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('.courses-tab-btn');
+        const cards = document.querySelectorAll('.courses-card');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('courses-tab-active'));
+                tab.classList.add('courses-tab-active');
+                
+                tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+                const filter = tab.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.classList.remove('courses-hidden');
+                        card.animate([
+                            { opacity: 0, transform: 'translateY(10px)' },
+                            { opacity: 1, transform: 'translateY(0)' }
+                        ], {
+                            duration: 300,
+                            easing: 'ease-out'
+                        });
+                    } else {
+                        card.classList.add('courses-hidden');
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
