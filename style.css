@@ -583,7 +583,7 @@
             .review-text { font-size: 1.1rem; }
         }
         @media (max-width: 600px) {
-            .testimonial-card { flex-direction: column; height: auto !important; min-height: auto; }
+            .testimonial-card { flex-direction: column; height: auto !important; min-height: auto !important; }
             .profile-panel { width: 100%; padding: 30px 20px 20px 20px; border-bottom-right-radius: 40px; min-height: 260px; }
             .student-img { width: 90px; height: 90px; margin-bottom: 10px; border-width: 3px; }
             .student-name { font-size: 1.3rem; margin-bottom: 5px; }
