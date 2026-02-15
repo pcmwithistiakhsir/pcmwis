@@ -189,7 +189,7 @@
         const mImg = document.getElementById('mImg');
         
         function getReviewTextLimit() {
-            if (window.innerWidth < 600) return 130; 
+            if (window.innerWidth < 600) return 200; 
             return 300; 
         }
         
