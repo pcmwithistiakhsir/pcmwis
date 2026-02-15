@@ -130,6 +130,7 @@
                 <li class="nav-item"><a href="#home" class="active" onclick="closeMenu()">হোম</a></li>
                 <li class="nav-item"><a href="#features" onclick="closeMenu()">সুবিধাসমূহ</a></li>
                 <li class="nav-item"><a href="#courses" onclick="closeMenu()">কোর্স</a></li>
+                <li class="nav-item"><a href="#review" onclick="closeMenu()">মতামত</a></li>
                 <li class="nav-item"><a href="#director" onclick="closeMenu()">পরিচালক</a></li>
                 <li class="nav-item nav-btn-item">
                     <a href="#contact" class="btn-gradient" onclick="closeMenu()">
@@ -317,6 +318,60 @@
             </div>
         </div>
     </section>
+
+    <!-- Review Section -->
+    <section id="review" class="py-5">
+        <div class="container py-5">
+            <!-- Section Header -->
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="text-primary fw-bold">শিক্ষার্থীদের মতামত</h6>
+                <h2 class="fw-bold">কেন শিক্ষার্থীরা আমাদের পছন্দ করে</h2>
+            </div>
+
+            <!-- Review Card -->
+            <div class="testimonial-card" data-aos="zoom-in">
+                <!-- বাম প্যানেল -->
+                <div class="profile-panel">
+                    <div class="profile-content active" id="leftInfo">
+                        <img src="" alt="Student" class="student-img" id="sImg">
+                        <h3 class="student-name" id="sName"></h3>
+                        <p class="student-inst" id="sInst"></p>
+                    </div>
+                </div>
+
+                <!-- ডান প্যানেল -->
+                <div class="review-panel">
+                    <i class="fas fa-quote-right bg-icon"></i>
+                    
+                    <div class="review-content active" id="rightReview">
+                        <p class="review-text">
+                            <i class="fas fa-quote-left quote-start"></i>
+                            <span id="sReview"></span>
+                        </p>
+                    </div>
+
+                    <div class="rev-nav-controls">
+                        <button class="rev-nav-btn" onclick="prevSlide()"><i class="fas fa-arrow-left"></i></button>
+                        <button class="rev-nav-btn" onclick="nextSlide()"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Modal Structure -->
+    <div class="rev-modal-wrapper" id="reviewModalOverlay">
+        <div class="rev-modal-box">
+            <div class="rev-close-btn" onclick="closeReviewModal()"><i class="fas fa-times"></i></div>
+            
+            <img id="mImg" src="" style="width:80px; height:80px; border-radius:50%; object-fit:cover; margin-bottom:10px; border:3px solid var(--rev-primary);">
+            <h3 id="mName" style="color:var(--rev-primary-dark); margin-bottom: 5px;"></h3>
+            <span id="mInst" style="font-size:0.95rem; color:#666; background:#f0f2f5; padding: 3px 10px; border-radius:15px;"></span>
+            <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
+            
+            <div class="rev-modal-text" id="mText"></div>
+        </div>
+    </div>
 
     <!-- Gallery Section (Click to Zoom With Caption) -->
     <section id="gallery" class="py-5 bg-white">
