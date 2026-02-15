@@ -521,7 +521,7 @@
         .review-content.active { position: relative; opacity: 1; transform: translateY(0); }
         
         .review-text {
-            font-size: 1.25rem; line-height: 1.8; color: var(--rev-text-main); text-align: justify; min-height: 160px;
+            font-size: 1.25rem; line-height: 1.8; color: var(--rev-text-main); text-align: justify; min-height: 180px;
         }
         .quote-start {
             font-size: 1.4rem; color: var(--rev-primary); margin-right: 8px; vertical-align: -3px;
